@@ -2,7 +2,7 @@ package com.janmokrackispringproject.spring;
 
 import com.google.gson.Gson;
 import com.janmokrackispringproject.beans.Book;
-import com.janmokrackispringproject.helpers.dataaccess.BookDbAccess;
+import com.janmokrackispringproject.helpers.BookDbAccess;
 import com.janmokrackispringproject.requests.AddBookRequest;
 import com.janmokrackispringproject.responses.*;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 
 @Service
 public class DashboardService {

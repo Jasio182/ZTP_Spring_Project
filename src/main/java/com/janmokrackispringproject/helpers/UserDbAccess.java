@@ -1,13 +1,9 @@
-package com.janmokrackispringproject.helpers.dataaccess;
+package com.janmokrackispringproject.helpers;
 
-import com.janmokrackispringproject.beans.Book;
 import com.janmokrackispringproject.beans.Role;
 import com.janmokrackispringproject.beans.User;
-import com.janmokrackispringproject.helpers.EncryptionMethods;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package com.janmokrackispringproject.spring;
 
 import com.janmokrackispringproject.beans.User;
-import com.janmokrackispringproject.helpers.dataaccess.UserDbAccess;
+import com.janmokrackispringproject.helpers.UserDbAccess;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

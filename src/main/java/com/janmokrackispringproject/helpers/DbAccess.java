@@ -1,4 +1,4 @@
-package com.janmokrackispringproject.helpers.dataaccess;
+package com.janmokrackispringproject.helpers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

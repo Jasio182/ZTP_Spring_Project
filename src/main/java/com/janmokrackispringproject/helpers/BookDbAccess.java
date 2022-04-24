@@ -1,10 +1,9 @@
-package com.janmokrackispringproject.helpers.dataaccess;
+package com.janmokrackispringproject.helpers;
 
 import com.janmokrackispringproject.beans.Book;
 import com.janmokrackispringproject.requests.AddBookRequest;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
