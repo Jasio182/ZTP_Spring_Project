@@ -5,6 +5,8 @@ import com.janmokrackispringproject.beans.Book;
 import com.janmokrackispringproject.helpers.dataaccess.BookDbAccess;
 import com.janmokrackispringproject.requests.AddBookRequest;
 import com.janmokrackispringproject.responses.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
@@ -22,7 +24,8 @@ public class DashboardService {
         this.gson = new Gson();
     }
 
-    public String GetBooks() {
+    public ResponseEntity GetBooks() {
+        HttpStatus status = HttpStatus.OK;
         Response response = new OKResponse("[]");
         try{
             response = new OKResponse(bookDbAccess.GetBooks());
@@ -32,63 +35,77 @@ public class DashboardService {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             response = new ExceptionResponse(sw.toString());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         finally {
-            return gson.toJson(response);
+            return new ResponseEntity(gson.toJson(response), status);
         }
     }
 
-    public String GetBook(int id) {
-        Response response = new OKResponse("[]");
+    public ResponseEntity GetBook(int id) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        Response response = new NotFoundResponse("There is no such book");
         try{
             Book book = bookDbAccess.GetBook(id);
-            if(book != null)
+            if(book != null) {
+                status = HttpStatus.OK;
                 response = new OKResponse(book);
-            else
-                response = new NotFoundResponse("There is no such book");
+            }
         }
         catch(Exception e)
         {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             response = new ExceptionResponse(sw.toString());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         finally {
-            return gson.toJson(response);
+            return new ResponseEntity(gson.toJson(response), status);
         }
     }
 
-    public String AddBook(AddBookRequest addBookRequest) {
+    public ResponseEntity AddBook(AddBookRequest addBookRequest) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         Response response = new BadRequestResponse("");
         try{
+            status = HttpStatus.OK;
             response = new OKResponse(bookDbAccess.AddBook(addBookRequest));
         }
         catch(Exception e)
         {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
             response = new ExceptionResponse(sw.toString());
         }
         finally {
-            return gson.toJson(response);
+            return new ResponseEntity(gson.toJson(response), status);
         }
     }
 
-    public String RemoveBook(int id) {
+    public ResponseEntity RemoveBook(int id) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         Response response = new BadRequestResponse("");
         try{
             Book bookToDelete = bookDbAccess.GetBook(id);
-            if(bookDbAccess.RemoveBook(bookToDelete.getTitle()))
+            if(bookToDelete == null) {
+                status = HttpStatus.NOT_FOUND;
+                response = new NotFoundResponse("There is no such book");
+            }
+            else if(bookDbAccess.RemoveBook(bookToDelete.getTitle())) {
+                status = HttpStatus.OK;
                 response = new OKResponse("");
+            }
         }
         catch(Exception e)
         {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));
             response = new ExceptionResponse(sw.toString());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         finally {
-            return gson.toJson(response);
+            return new ResponseEntity(gson.toJson(response), status);
         }
     }
 }

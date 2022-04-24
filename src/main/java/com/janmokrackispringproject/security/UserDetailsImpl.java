@@ -28,13 +28,11 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        System.out.println("pass "+this.user.getPass());
         return this.user.getPass();
     }
 
     @Override
     public String getUsername() {
-        System.out.println("username "+this.user.getLogin());
         return this.user.getLogin();
     }
 

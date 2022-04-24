@@ -1,6 +1,8 @@
 package com.janmokrackispringproject.spring;
 
 import com.janmokrackispringproject.requests.AddBookRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,25 +17,25 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String getBooks()
+    public ResponseEntity getBooks()
     {
         return dashboardService.GetBooks();
     }
 
     @GetMapping("/dashboard/{id}")
-    public String getBook(@PathVariable int id)
+    public ResponseEntity getBook(@PathVariable int id)
     {
         return dashboardService.GetBook(id);
     }
 
     @PostMapping("/dashboard")
-    public String addBook(@RequestBody AddBookRequest addBookRequest)
+    public ResponseEntity addBook(@RequestBody AddBookRequest addBookRequest)
     {
         return dashboardService.AddBook(addBookRequest);
     }
 
     @DeleteMapping("/dashboard/{id}")
-    public String removeBook(@PathVariable int id)
+    public ResponseEntity removeBook(@PathVariable int id)
     {
         return dashboardService.RemoveBook(id);
     }
